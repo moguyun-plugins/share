@@ -2,6 +2,7 @@
 
 namespace moguyun\plugins\share\models;
 
+use yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use zacksleo\yii2\plugin\models\PluginSetting;
@@ -32,6 +33,17 @@ class Share extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'title' => '分享标题',
+            'url' => '分享链接',
+            'description' => '分享描述',
+            'image' => '图标预览',
+            'imageFile' => '分享图标',
+        ];
+    }
+
     public function fields()
     {
         return [
@@ -45,20 +57,21 @@ class Share extends Model
     public function afterValidate()
     {
         parent::afterValidate();
-        if (isset($doctor['imageFile'])) {
+        $post = Yii::$app->request->post('Share');
+        if (isset($post['imageFile'])) {
             $file = UploadedFile::getInstance($this, 'imageFile');
             if (!empty($file)) {
                 $this->imageFile = $file;
             }
         }
         if ($this->imageFile instanceof UploadedFile) {
-            $date = date('Ymd') . '/';
-            $path = \Yii::getAlias('@frontend') . '/web/uploads/' . $date;
+            $date = '/uploads/' . date('Ymd') . '/';
+            $path = \Yii::getAlias('@frontend') . '/web/' . $date;
             if (!file_exists($path)) {
                 mkdir($path);
             }
-            $filename = uniqid() . '.' . $this->image->extension;
-            $this->uploadedFile->saveAs($path . $filename);
+            $filename = uniqid() . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($path . $filename);
             $this->image = $date . $filename;
         }
     }
@@ -66,7 +79,7 @@ class Share extends Model
     public function save()
     {
         foreach ($this->fields() as $attribute) {
-            PluginSetting::set($this->identify, $attribute, $this->$attribute);
+            PluginSetting::set($this->identify, $attribute, $this->{$attribute});
         }
         return true;
     }

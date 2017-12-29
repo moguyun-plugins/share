@@ -1,6 +1,6 @@
 <?php
 
-namespace moguyun\plugins\share\plugin;
+namespace moguyun\plugins\share;
 
 use moguyun\plugins\share\models\Share;
 use yii;
@@ -29,7 +29,16 @@ class Plugin extends IPlugin
 
     public function globalFooter()
     {
-
+        $model = new Share();
+        $model->attributes = [
+            'title' => $this->getSetting('title'),
+            'description' => $this->getSetting('description'),
+            'url' => $this->getSetting('url'),
+            'image' => $this->getSetting('image'),
+        ];
+        return $this->render('frontend', [
+            'model' => $model
+        ]);
     }
 
     public function admincp()
@@ -41,7 +50,8 @@ class Plugin extends IPlugin
             'url' => $this->getSetting('url'),
             'image' => $this->getSetting('image'),
         ];
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()) {
+        $model->identify = $this->identify;
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             Yii::$app->session->setFlash('success', '设置成功');
         }
         return $this->render('admincp', [

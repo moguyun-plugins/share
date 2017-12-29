@@ -1,0 +1,43 @@
+{
+    "name": "moguyun-plugins/share",
+    "description": "moguyun wechat share",
+    "type": "moguyun-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "moguyun",
+        "cms",
+        "merchant-plugin",
+        "wechat share"
+    ],
+    "support": {
+        "docs": "https://gitlab.com/moguyun/plugins/share/blob/master/README.md",
+        "issues": "https://gitlab.com/moguyun/plugins/share/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zackseo",
+            "homepage": "zacksleo.github.io"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "moguyun\\plugins\\share\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "share",
+        "handle": "share",
+        "schemaVersion": "0.0.1",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://gitlab.com/moguyun/plugins/share/blob/master/CHANGELOG.md",
+        "class": "moguyun\\plugins\\share\\Plugin"
+    }
+}

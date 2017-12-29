@@ -8,7 +8,7 @@ use yii\web\View;
 /* @var $model Share */
 $this->registerJsFile('https://res.wx.qq.com/open/js/jweixin-1.2.0.js');
 $app = Factory::officialAccount(Yii::$app->params['wechat.officialAccount']);
-$json = $app->jssdk->buildConfig(array('onMenuShareTimeline', 'onMenuShareAppMessage'), true);
+$json = $app->jssdk->buildConfig(array('onMenuShareTimeline', 'onMenuShareAppMessage'), false);
 $js = <<<JS
 wx.config($json);
 wx.onMenuShareTimeline({

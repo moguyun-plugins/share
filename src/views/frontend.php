@@ -11,19 +11,16 @@ $app = Factory::officialAccount(Yii::$app->params['wechat.officialAccount']);
 $json = $app->jssdk->buildConfig(array('onMenuShareTimeline', 'onMenuShareAppMessage'), true);
 $js = <<<JS
 wx.config($json);
-wx.ready(function(){
-    wx.onMenuShareTimeline({
-        title: '$model->title', 
-        link: '$model->url',
-        imgUrl: window.location.origin+'$model->image'
-    });
-    wx.onMenuShareAppMessage({
-        title: '$model->title',
-        desc: '$model->description', 
-        link: '$model->url', 
-        imgUrl: window.location.origin+'$model->image'
-    });
+wx.onMenuShareTimeline({
+    title: '$model->title',
+    link: '$model->url',
+    imgUrl: window.location.origin + '$model->image'
 });
-
+wx.onMenuShareAppMessage({
+    title: '$model->title',
+    desc: '$model->description',
+    link: '$model->url',
+    imgUrl: window.location.origin + '$model->image'
+});
 JS;
 $this->registerJs($js, View::POS_END);

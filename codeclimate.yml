@@ -1,0 +1,26 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  phpmd:
+    enabled: true
+    rulesets: "phpmd.xml"
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php"
+      standard: "PSR2"
+    colors: true
+    ignore_warnings: true
+    encoding: utf-8
+ratings:
+  paths:
+  - "**.php"
+exclude_paths:
+- tests/
+- vendor/
+- src/migrations
+- src/frontend/assets
+- src/frontend/views

@@ -36,7 +36,7 @@ class Plugin extends IPlugin
             'url' => $this->getSetting('url'),
             'image' => $this->getSetting('image'),
         ];
-        return $this->render('frontend', [
+        echo $this->render('frontend', [
             'model' => $model
         ]);
     }

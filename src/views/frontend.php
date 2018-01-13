@@ -6,9 +6,10 @@ use yii\web\View;
 
 /* @var $this View */
 /* @var $model Share */
+/* @var $jsApiList array */
 $this->registerJsFile('https://res.wx.qq.com/open/js/jweixin-1.2.0.js');
 $app = Factory::officialAccount(Yii::$app->params['wechat.officialAccount']);
-$json = $app->jssdk->buildConfig(array('onMenuShareTimeline', 'onMenuShareAppMessage'), false);
+$json = $app->jssdk->buildConfig($jsApiList, false);
 $js = <<<JS
 wx.config($json);
 wx.ready(function(){

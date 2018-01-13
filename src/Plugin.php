@@ -36,24 +36,6 @@ class Plugin extends IPlugin
             'url' => $this->getSetting('url'),
             'image' => $this->getSetting('image'),
         ];
-        echo $this->render('frontend', [
-            'model' => $model
-        ]);
-    }
-
-    public function admincp()
-    {
-        $model = new Share();
-        $model->attributes = [
-            'title' => $this->getSetting('title'),
-            'description' => $this->getSetting('description'),
-            'url' => $this->getSetting('url'),
-            'image' => $this->getSetting('image'),
-        ];
-        $model->identify = $this->identify;
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
-            Yii::$app->session->setFlash('success', '设置成功');
-        }
         $jsApiList = [
             'onMenuShareTimeline',
             'onMenuShareAppMessage',
@@ -91,9 +73,28 @@ class Plugin extends IPlugin
             'chooseCard',
             'openCard'
         ];
-        return $this->render('admincp', [
+        echo $this->render('frontend', [
             'model' => $model,
             'jsApiList' => $jsApiList
+        ]);
+    }
+
+    public function admincp()
+    {
+        $model = new Share();
+        $model->attributes = [
+            'title' => $this->getSetting('title'),
+            'description' => $this->getSetting('description'),
+            'url' => $this->getSetting('url'),
+            'image' => $this->getSetting('image'),
+        ];
+        $model->identify = $this->identify;
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+            Yii::$app->session->setFlash('success', '设置成功');
+        }
+
+        return $this->render('admincp', [
+            'model' => $model
         ]);
     }
 
